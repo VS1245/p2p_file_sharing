@@ -1,0 +1,45 @@
+<!-- templates/users/login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">LOGIN</h2>
+
+        {% if login_success %}
+        <script type="text/javascript">
+            alert("Login Successful!");
+            window.location.href = "{% url 'dashboard' %}"; 
+        </script>
+        {% endif %}
+
+        {% if login_failure %}
+        <script type="text/javascript">
+            alert("Invalid Username or Password");
+        </script>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" name="username" id="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" name="password" id="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Log In</button>
+        </form>
+
+        <div class="text-center mt-3">
+            <a href="{% url 'register' %}">Don't have an account? Register here</a>
+        </div>
+    </div>
+</body>
+</html>

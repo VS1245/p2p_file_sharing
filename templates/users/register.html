@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <!-- Bootstrap CSS for styling -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- Registration Form Heading -->
+        <h2 class="text-center mb-4">REGISTER</h2>
+
+        <ul>
+            <li>Please fill in all the fields to complete your registration.</li>        
+            <li>Your password can't be too similar to your other personal information.
+            <li>Your password must contain at least 8 characters.
+            <li>Your password cannot be a commonly used password.
+            <li>Your password can't be entirely numeric.
+        </ul>
+
+        <!-- Messages Block: For displaying success or error messages -->
+        {% if registration_success %}
+        <script type="text/javascript">
+            alert("Registration Successful! You can now log in.");
+            window.location.href = "{% url 'login' %}"; 
+        </script>
+        {% endif %}
+
+        {% if registration_failure %}
+        <script type="text/javascript">
+            alert("{{ error_message }}");
+        </script>
+        {% endif %}
+        
+
+        <!-- User Registration Form -->
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+            </div>
+            <div class="form-group">
+                {{ form.password1.label_tag }}
+                {{ form.password1 }}
+            </div>
+            <div class="form-group">
+                {{ form.password2.label_tag }}
+                {{ form.password2 }}
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+        </form>
+        <div class="text-center mt-3">
+            <a href="{% url 'login' %}">Already have an account? Login here</a>
+        </div>
+    </div>
+
+</body>
+</html>

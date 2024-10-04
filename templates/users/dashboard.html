@@ -1,0 +1,23 @@
+<!-- templates/users/dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Welcome, {{ user.username }}!</h2>
+        <p class="text-center">This is your dashboard where you can manage your account.</p>
+
+        <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action">View Profile</a>
+            <a href="#" class="list-group-item list-group-item-action">Upload Files</a>
+            <a href="#" class="list-group-item list-group-item-action">Shared Files</a>
+            <a href="{% url 'login' %}" class="list-group-item list-group-item-action">Logout</a>
+        </div>
+    </div>
+</body>
+</html>
