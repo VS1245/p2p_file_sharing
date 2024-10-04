@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import UserRegisterForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 def register(request):
@@ -39,6 +39,12 @@ def login_view(request):
             return render(request, 'users/login.html', {'login_failure': True})
     return render(request, 'users/login.html')
 
-@login_required  # Ensure that only logged-in users can access this view
+@login_required  
 def dashboard(request):
     return render(request, 'users/dashboard.html', {'user': request.user})
+
+@login_required  # Ensure that only logged-in users can access this view
+def logout_view(request):
+    logout(request)  # This logs the user out
+    messages.success(request, 'You have been logged out successfully.')
+    return render(request, 'users/logout.html')
