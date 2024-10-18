@@ -1,0 +1,22 @@
+<!-- templates/users/shared_files.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shared Files</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Shared Files</h2>
+        <ul class="list-group">
+            {% for file in files %}
+                <li class="list-group-item">
+                    <a href="{{ file.file.url }}">{{ file.file.name }}</a> - Uploaded by {{ file.uploader.username }} on {{ file.uploaded_at }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

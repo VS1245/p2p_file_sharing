@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View File Requests</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">All File Requests</h2>
+        <ul class="list-group">
+            {% for request in file_requests %}
+                <li class="list-group-item">
+                    <strong>File:</strong> {{ request.file_name }}<br>
+                    <strong>Requested by:</strong> {{ request.requester.username }}<br>
+                    <strong>Details:</strong> {{ request.description }}<br>
+                    <strong>Requested on:</strong> {{ request.requested_at }}
+                    <div class="text-center mt-3">
+                        <a href="{% url 'upload_file' %}">Upload</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

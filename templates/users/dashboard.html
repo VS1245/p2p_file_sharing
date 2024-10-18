@@ -1,4 +1,3 @@
-<!-- templates/users/dashboard.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,8 +13,9 @@
 
         <div class="list-group">
             <a href="#" class="list-group-item list-group-item-action">View Profile</a>
-            <a href="#" class="list-group-item list-group-item-action">Upload Files</a>
-            <a href="#" class="list-group-item list-group-item-action">Shared Files</a>
+            <a href="{% url 'upload_file' %}" class="list-group-item list-group-item-action">Upload Files</a>
+            <a href="{% url 'request_file' %}" class="list-group-item list-group-item-action">Request Files</a>
+            <a href="{% url 'view_requests' %}" class="list-group-item list-group-item-action">View Requests Files</a>
             <a href="{% url 'logout' %}" class="list-group-item list-group-item-action">Logout</a>
         </div>
     </div>
