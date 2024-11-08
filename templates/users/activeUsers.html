@@ -1,0 +1,57 @@
+<!-- templates/users/shared_files.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Peers</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body class="bg-dark text-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'dashboard' %}">P2P FILE SHARING</a>
+        <!-- <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'view_requests' %}">Active Requests</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'shared_files' %}">Shared Files</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+            </ul>
+        </div> -->
+    </nav>
+    <div class="container mt-5">
+        <h2 class="text-center">My Peers</h2>
+        <br>
+        <br>
+        <h5 class="text-left">Online</h2>
+        <ul class="list-group">
+            {% for user in online %}
+                <li class="list-group-item list-group-item-success" style="cursor: pointer; color: black; margin-bottom: 10px;" onmouseover="this.style.backgroundColor='#f8f9fa'" onmouseout="this.style.backgroundColor=''">
+                    <div class="d-flex justify-content-between">
+                        <strong>{{ user.user.username }}</strong>
+                        <!-- <span class="badge badge-success">Online</span> -->
+                    </div>
+                </li>
+            {% empty %}
+                <li class="list-group-item">No User's Online.</li>
+            {% endfor %}
+            </ul>
+            <h5 class="text-left">Offline</h2>
+            <ul class="list-group">
+            {% for user in offline %}
+                <li class="list-group-item list-group-item-danger" style="cursor: pointer;color: black; margin-bottom: 10px;" onmouseover="this.style.backgroundColor='#f8f9fa'" onmouseout="this.style.backgroundColor=''">
+                    <div class="d-flex justify-content-between">
+                        <strong>{{ user.user.username }}</strong>
+                        <!-- <span class="badge badge-success">Online</span> -->
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

@@ -76,10 +76,33 @@ WSGI_APPLICATION = 'p2p_file_sharing.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',  
+#         'NAME': 'p2p_file_sharing',  
+#         'ENFORCE_SCHEMA': False,  
+#         'CLIENT': {
+#             'host': '10.17.9.172',  
+#             'port': 27017,  
+#         }
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'NAME': 'p2pFileSharing',  # The database name in MongoDB Atlas
+        'CLIENT': {
+            'host': 'mongodb+srv://p2pfilesharing123:p2pfilesharing123@cluster0.0ttq3.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
+            'ssl': True,  # Optional, if your connection requires SSL
+        }
     }
 }
 
@@ -108,7 +131,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 

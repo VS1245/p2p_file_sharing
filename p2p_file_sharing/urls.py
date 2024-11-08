@@ -15,4 +15,5 @@ urlpatterns = [
     path('shared-files/', user_views.shared_files, name='shared_files'),
     path('request-file/', user_views.request_file, name='request_file'),
     path('view-requests/', user_views.view_requests, name='view_requests'),
+    path('active-users/', user_views.active_users, name='active_users'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

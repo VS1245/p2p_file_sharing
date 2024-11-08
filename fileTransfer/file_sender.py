@@ -3,12 +3,10 @@ import os
 import struct
 import sys
 
-# Client configuration
-SERVER_IP = '127.0.0.1'  # Replace with the server's IP
 SERVER_PORT = 5001       # Same port as server
 BUFFER_SIZE = 1024
 
-def send_file(file_path):
+def send_file(SERVER_IP, file_path):
     # Create a TCP/IP socket
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect((SERVER_IP, SERVER_PORT))
@@ -18,6 +16,7 @@ def send_file(file_path):
     file_name_length = len(file_name)
 
     # Send the file name length (4 bytes)
+    print("sender",file_name_length)
     client_socket.send(struct.pack('!I', file_name_length))
     
     # Then send the file name
@@ -35,17 +34,18 @@ def send_file(file_path):
     print(f"File {file_name} sent successfully!")
     client_socket.close()
 
+
+
 if __name__ == "__main__":
     # file_path = input("Enter the path of the file to send: ")
-    if len(sys.argv) < 2:
+    if len(sys.argv) < 3:
         print("Usage: python file_sender.py <receiver_ip_address>")
         sys.exit(1)
 
-    receiver_ip = sys.argv[1]
+    receiver_ip = sys.argv[2]
 
     # Hardcode the file path or make it dynamic
-    file_path = 'path_to_the_uploaded_file'
+    file_path = sys.argv[1]
 
     # Send the file to the receiver
     send_file(receiver_ip, file_path)
-    send_file(file_path)

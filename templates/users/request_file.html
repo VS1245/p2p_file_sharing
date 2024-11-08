@@ -5,34 +5,131 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Request File</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
+    <style>
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            z-index: 1000;
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
 
-<div class="container mt-5">
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+        }
+
+        .loading-text {
+            margin-top: 15px;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body class="bg-dark text-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'dashboard' %}">P2P FILE SHARING</a>
+        <!-- <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'view_requests' %}">Active Requests</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'shared_files' %}">Shared Files</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+            </ul>
+        </div>-->
+     </nav> 
+     <div class="container mt-5">
+    <h2 class="text-center">Request File</h2>
+    <br>
+    <br>
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-5">
             <div class="card">
-                <div class="card-header text-center">
-                    <h3>Request a File</h3>
-                </div>
                 <div class="card-body">
-                    <form method="POST">
+                    <form id="myForm" method="POST" action="{% url 'request_file' %}">
                         {% csrf_token %}
 
                         <!-- Display form fields -->
                         <div class="form-group">
-                            <label for="id_file_name">File Name:</label>
-                            {{ form.file_name }}  <!-- Display the file_name field without crispy-forms -->
+                            <label for="id_file_name" style="color: black;">File Name:</label>
+                            {{ form.file_name }}
                         </div>
 
                         <!-- Submit Button -->
-                        <button type="submit" class="btn btn-primary btn-block">Request File</button>
+                        <button type="submit" class="btn btn-primary btn-block">Request</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+{% if messages %}
+        {% for message in messages %}
+        <script>
+            alert("{{ message|escapejs }}");
+        </script>
+        {% endfor %}
+        <script>
+            window.location.href = "{% url 'view_requests' %}"; 
+        </script>
+{% endif %}
+
+<!-- Add loading overlay dynamically using JavaScript -->
+<script>
+    // Function to create the loading overlay
+    function createLoadingOverlay() {
+        const overlay = document.createElement('div');
+        overlay.classList.add('loading-overlay', 'd-flex', 'flex-column');
+        overlay.id = 'loadingOverlay';
+
+        const spinner = document.createElement('div');
+        spinner.classList.add('spinner-border', 'text-primary');
+        spinner.setAttribute('role', 'status');
+
+        const srText = document.createElement('span');
+        srText.classList.add('sr-only');
+        srText.innerText = 'Loading...';
+
+        spinner.appendChild(srText);
+
+        const loadingText = document.createElement('div');
+        loadingText.classList.add('loading-text');
+        loadingText.innerText = 'Receiving File, please wait...';
+
+        overlay.appendChild(spinner);
+        overlay.appendChild(loadingText);
+
+        document.body.appendChild(overlay);
+    }
+
+    // Function to show the loading overlay
+    function showOverlay() {
+        createLoadingOverlay(); // Create the overlay only when needed
+        document.getElementById('loadingOverlay').style.display = 'flex';
+    }
+
+    // Show the loading overlay on form submission
+    document.addEventListener('DOMContentLoaded', function () {
+        // Add event listener for form submission
+        const form = document.getElementById('myForm');
+        if (form) {
+            form.addEventListener('submit', function (event) {
+                showOverlay();
+            });
+        }
+    });
+</script>
 
 </body>
 </html>
