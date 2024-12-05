@@ -100,7 +100,7 @@ DATABASES = {
         'ENGINE': 'djongo',
         'NAME': 'p2pFileSharing',  # The database name in MongoDB Atlas
         'CLIENT': {
-            'host': 'mongodb+srv://p2pfilesharing123:p2pfilesharing123@cluster0.0ttq3.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
+            'host': 'mongodb+srv://', # add your own mongouri
             'ssl': True,  # Optional, if your connection requires SSL
         }
     }
