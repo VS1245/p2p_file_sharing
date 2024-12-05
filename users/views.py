@@ -8,7 +8,9 @@ import os
 import subprocess
 import psutil
 import socket
-
+from datetime import datetime
+from django.utils import timezone
+from django.utils.dateparse import parse_date
 # def get_client_ip(request):
 #     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
 #     if x_forwarded_for:
@@ -94,6 +96,7 @@ def upload_file(request):
             file_instance = form.save(commit=False)
             file_instance.uploader = request.user
             file_instance.description = file_request.file_name  
+            file_instance.file_type = file_request.file_type  
             file_instance.save()
 
             file_path = file_instance.file.path  
@@ -118,15 +121,21 @@ def upload_file(request):
     return render(request, 'users/upload_file.html', {'form': form})
 
 
+
 @login_required
 def shared_files(request):
     query = request.GET.get('search', '')
+    file_type = request.GET.get('file_type', None)
+    
+    files = File.objects.filter(uploader=request.user)
+    
     if query:
-        files = File.objects.filter(description__icontains=query, uploader= request.user)  # Filter by description
-        return render(request, 'users/shared_files.html', {'files': files})
-    else:
-        files = File.objects.filter(uploader=request.user)  # List all shared files
-        return render(request, 'users/shared_files.html', {'files': files})
+        files = files.filter(description__icontains=query)
+    
+    if file_type:
+        files = files.filter(file_type=file_type)
+    
+    return render(request, 'users/shared_files.html', {'files': files})
 
 @login_required
 def request_file(request):

@@ -7,10 +7,17 @@ class UserProfile(models.Model):
     status = models.CharField(max_length=10, default='not active')
 
 class File(models.Model):
+    FILE_TYPE_CHOICES = [
+        ('document', 'Document'),
+        ('video', 'Video'),
+        ('image', 'Image'),
+        ('audio', 'Audio'),
+    ]
     uploader = models.ForeignKey(User, on_delete=models.CASCADE)  # File uploaded by a specific user
     file = models.FileField(upload_to='uploads/')  # Path to store uploaded files
     description = models.TextField(blank=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)  # Automatically add the time the file is uploaded
+    file_type = models.CharField(max_length=10, choices=FILE_TYPE_CHOICES)
 
     def __str__(self):
         return f"{self.file.name} uploaded by {self.uploader.username}"
@@ -21,11 +28,19 @@ class FileRequest(models.Model):
         ('Pending', 'Pending'),
         ('Completed', 'Completed'),
     ]
+    FILE_TYPE_CHOICES = [
+        ('document', 'Document'),
+        ('video', 'Video'),
+        ('image', 'Image'),
+        ('audio', 'Audio'),
+    ]
     file_name = models.CharField(max_length=100)
+    file_type = models.CharField(max_length=10, choices=FILE_TYPE_CHOICES)
     requester = models.ForeignKey(User, on_delete=models.CASCADE)
     requested_at = models.DateTimeField(auto_now_add=True)
     requester_ip = models.GenericIPAddressField(null=True, blank=True)  
     status = models.CharField(max_length=10, choices=REQUEST_STATUS, default='Pending')  # Track request status
+
 
     def __str__(self):
         return f"{self.file_name} requested by {self.requester.username}"

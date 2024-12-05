@@ -18,4 +18,4 @@ class FileUploadForm(forms.ModelForm):
 class FileRequestForm(forms.ModelForm):
     class Meta:
         model = FileRequest
-        fields = ['file_name']
+        fields = ['file_name', 'file_type']

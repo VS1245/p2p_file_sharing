@@ -9,39 +9,26 @@
 <body class="bg-dark text-light">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="{% url 'dashboard' %}">P2P FILE SHARING</a>
-        <!-- <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'view_requests' %}">Active Requests</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'shared_files' %}">Shared Files</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                </li>
-            </ul>
-        </div> -->
     </nav>
     <div class="container mt-5">
-        <h2 class="text-center">Active Requests</h2>
+        <h2 class="text-center">Active Requests</h2><br><br>
         <ul class="list-group">
             {% for request in file_requests %}
                 <li class="list-group-item" style="color: black;">
-                    <strong>File:</strong> {{ request.file_name }}<br>
-                    <strong>Requested by:</strong> {{ request.requester.username }}<br>
-                    <!-- <strong>Details:</strong> {{ request.description }}<br> -->
-                    <strong>Requested on:</strong> {{ request.requested_at }}
-                    <!-- <div class="text-center mt-3">
-                        <a href="{% url 'upload_file' %}">Upload</a>
-                    </div> -->
+                    <strong>File:</strong> {{ request.file_name }}&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                    <strong>File Type:</strong> {{ request.file_type }}&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                    <strong>Requester:</strong> {{ request.requester.username }}&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                    <strong>Date:</strong> {{ request.requested_at|date:"Y-m-d"  }}&emsp;&emsp;&emsp;&emsp;&emsp;
+                    <strong>Time:</strong> {{ request.requested_at|date:"H:i"  }}
                     {% if request.status == 'Pending' %}
                     <form action="{% url 'upload_file' %}" method="GET">
-                        <input type="hidden" name="file_name" value="{{ request.file_name }}">
-                        <input type="hidden" name="request_id" value="{{ request.requester_ip }}">
+                        <input type="hidden" name="request_id" value="{{ request.id }}">
+                        <button type="submit" class="btn btn-secondary">Upload</button>
+                    </form>
+                    <!-- <form action="{% url 'upload_file' %}" method="GET">
                         <input type="hidden" name="request_id" value="{{ request.id }}">
                         <button type="submit" class="btn btn-primary">Upload</button>
-                    </form>
+                    </form> -->
                     {% endif %}
                 </li>
             {% endfor %}
